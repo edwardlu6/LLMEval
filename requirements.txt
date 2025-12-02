@@ -1,0 +1,6 @@
+typer[all]
+pyyaml
+datasets
+rouge-score
+numpy
+

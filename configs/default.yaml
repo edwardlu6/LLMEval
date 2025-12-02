@@ -1,0 +1,28 @@
+seed: 42
+sample_sizes:
+  nq: 100
+  hotpot: 100
+  wiki_summ: 100
+tasks:
+  - name: nq
+    type: qa
+  - name: wiki_summ
+    type: summarization
+perturbations:
+  synonym_prob: 0.3
+  paraphrase_prob: 0.2
+  reorder_prob: 0.1
+  distractor_prob: 0.2
+models:
+  - id: gpt4o_mini
+    provider: openai       # or 'hf' / 'local'
+    temperature: 0.2
+    max_tokens: 256
+metrics:
+  qa: [em, f1]
+  summarization: [rougeL, bertscore]   # you can drop bertscore initially
+robustness:
+  compute_drop: true
+  agreement: bertscore                 # or 'cosine'
+io:
+  out_dir: results
