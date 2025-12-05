@@ -447,7 +447,7 @@ MODEL_CONFIGS = {
         "max_new_tokens": 256,
         "temperature": 0.2,
         "top_p": 0.9,
-    },
+    }, 
     "mistral-7b": {
         "id": "hf_local",
         "name": "mistral-7b-instruct",
@@ -463,6 +463,36 @@ MODEL_CONFIGS = {
         "temperature": 0.2,
         "top_p": 0.9,
     },
+    "qwen2.5-14B": {
+        "id": "qwen_api",
+        "name": "qwen2.5-14B-instruct",
+        "model": "Qwen/Qwen2.5-14B-Instruct",
+        "trust_remote_code": True,
+        "device_map": "auto",
+        "load_in_4bit": True,
+        "bnb_4bit_compute_dtype": "float16",
+        "bnb_4bit_quant_type": "nf4",
+        "bnb_4bit_use_double_quant": True,
+        "use_chat_template": True,
+        "max_new_tokens": 256,
+        "temperature": 0.2,
+        "top_p": 0.9,
+    },  
+    "mixtral-8x22b": {
+        "id": "mixtral_api",
+        "name": "mixtral-8x22b-instruct",
+        "model": "mistralai/Mixtral-8x22B-Instruct-v0.1",
+        "trust_remote_code": True,
+        "device_map": "auto",
+        "load_in_4bit": True,
+        "bnb_4bit_compute_dtype": "float16",
+        "bnb_4bit_quant_type": "nf4",
+        "bnb_4bit_use_double_quant": True,
+        "use_chat_template": True,
+        "max_new_tokens": 256,
+        "temperature": 0.2,
+        "top_p": 0.9,
+    }
 }
 
 DEFAULT_PERTURB_CONFIG = {
