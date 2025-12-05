@@ -1,6 +1,6 @@
 
 from typing import Set
-from core import _norm
+from .core import _norm
 
 def extract_entities(text: str, vocabulary: Set[str]) -> Set[str]:
     """

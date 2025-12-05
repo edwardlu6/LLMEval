@@ -1,6 +1,20 @@
-typer[all]
-pyyaml
-datasets
-rouge-score
-numpy
+# Core dependencies
+torch>=2.0.0
+transformers>=4.30.0
+accelerate>=0.20.0
+bitsandbytes>=0.41.0
 
+# Metrics dependencies
+rouge-score>=0.1.2
+bert-score>=0.3.13
+sentence-transformers>=2.2.2
+numpy>=1.24.0
+scipy>=1.10.0
+
+# LLM evaluation
+datasets>=2.12.0
+evaluate>=0.4.0
+
+# Utilities
+tqdm>=4.65.0
+pandas>=2.0.0

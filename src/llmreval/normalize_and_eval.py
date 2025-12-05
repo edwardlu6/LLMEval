@@ -95,6 +95,48 @@ def build_prompt_med(rec: Dict[str, Any], mode: str = "mc_letter") -> str:
     ex = {"question": rec["question"], "options": rec.get("options", [])}
     return med.build_prompt_medqa(ex, mode=mode)
 
+def build_prompt_sci(rec: Dict[str, Any]) -> str:
+    """
+    Science (SciQ-style) unified record -> prompt.
+
+    Assumes unified_science has:
+      - question: str
+      - context: optional str
+      - options: optional list[str] (if you kept MC choices)
+    """
+    q = rec["question"].strip()
+    ctx = (rec.get("context") or "").strip()
+    options = rec.get("options") or []
+
+    lines = []
+
+    if ctx:
+        lines.append("You are a helpful science question answering assistant.")
+        lines.append(f"Context: {ctx}")
+        lines.append("")
+    else:
+        lines.append("You are a helpful science question answering assistant.")
+        lines.append("")
+
+    lines.append(f"Question: {q}")
+
+    if options:
+        # Label options as A, B, C, D...
+        letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        lines.append("Options:")
+        for i, opt in enumerate(options):
+            lines.append(f"  {letters[i]}. {opt.strip()}")
+        # You can choose either letter-only or text-only answers here.
+        lines.append(
+            "Answer with the correct option text only. Do not output the letter, just the answer."
+        )
+
+    else:
+        lines.append("Answer concisely and factually.")
+
+    return "\n".join(lines)
+
+
 # ---------------------------
 # Adapters -> Unified schema
 # ---------------------------
@@ -282,6 +324,29 @@ def unify_finqa_any(raw_dir: str, out_dir: str, split: str) -> str:
         f"Tried: {', '.join(candidates)}"
     )
 # === End flexible FinQA readers ===
+
+def build_prompt(rec: Dict[str, Any], domain: str) -> str:
+    """
+    Unified entrypoint used by the HPC runner.
+    """
+    domain = domain.lower()
+    if domain == "finance":
+        return build_prompt_fin(rec)
+    elif domain == "medical":
+        return build_prompt_med(rec, mode="mc_letter")
+    elif domain == "science":
+        return build_prompt_sci(rec)
+    else:
+        # Fallback: generic QA
+        ctx = (rec.get("context") or "").strip()
+        lines = []
+        if ctx:
+            lines.append(ctx)
+            lines.append("")
+        lines.append(f"Question: {rec['question'].strip()}")
+        lines.append("Answer concisely.")
+        return "\n".join(lines)
+
 
 
 # ---------------------------

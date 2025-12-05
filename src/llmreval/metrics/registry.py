@@ -1,13 +1,13 @@
 # registry.py
 
-from core import exact_match, token_f1, contains_gold
-from semantic import bertscore_f1, sbert_cosine
-from science_domain import numeric_tolerance, has_correct_unit
-from finance_domain import relative_numeric_error, equation_exact_match
-from medical_domain import med_keyword_f1, med_contains_gold
-from science_domain import sci_entity_f1
-from medical_domain import med_entity_f1
-from finance_domain import fin_entity_f1
+from .core import exact_match, token_f1, contains_gold
+from .semantic import bertscore_f1, sbert_cosine
+from .science_domain import numeric_tolerance, has_correct_unit
+from .finance_domain import relative_numeric_error, equation_exact_match
+from .medical_domain import med_keyword_f1, med_contains_gold
+from .science_domain import sci_entity_f1
+from .medical_domain import med_entity_f1
+from .finance_domain import fin_entity_f1
 
 
 METRICS = {
